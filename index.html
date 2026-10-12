@@ -145,6 +145,59 @@ async function loadPosts() {
     gallery.append(article);
   }
 }
+function updateProjectPage() {
+  const deadline = new Date("2026-12-06T00:00:00+01:00").getTime();
+  const nextProject = document.getElementById("asche2028");
+  const countdown = document.getElementById("countdown2028");
+
+  if (!nextProject) return;
+
+  const mainContent = Array.from(document.body.children).filter(
+    el => el.id !== "asche2028" && el.tagName !== "SCRIPT"
+  );
+
+  function tick() {
+    const now = Date.now();
+
+    if (now >= deadline) {
+      mainContent.forEach(el => el.style.display = "none");
+      nextProject.style.display = "block";
+
+      const target = new Date("2028-01-01T00:00:00+01:00").getTime();
+      const remaining = target - now;
+
+      if (countdown) {
+        if (remaining <= 0) {
+          countdown.textContent = "2028 ist da.";
+        } else {
+          const days = Math.floor(remaining / 86400000);
+          const hours = Math.floor((remaining % 86400000) / 3600000);
+          const minutes = Math.floor((remaining % 3600000) / 60000);
+          const seconds = Math.floor((remaining % 60000) / 1000);
+          countdown.textContent =
+            `${days} Tage · ${hours} Stunden · ${minutes} Minuten · ${seconds} Sekunden`;
+        }
+      }
+    } else {
+      const oldCountdown = document.getElementById("countdown2026");
+      if (oldCountdown) {
+        const remaining = deadline - now;
+        const days = Math.floor(remaining / 86400000);
+        const hours = Math.floor((remaining % 86400000) / 3600000);
+        const minutes = Math.floor((remaining % 3600000) / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        oldCountdown.textContent =
+          `${days} Tage · ${hours} Stunden · ${minutes} Minuten · ${seconds} Sekunden`;
+      }
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+}
+
+updateProjectPage();
+
 </script>
 </body>
 </html>
