@@ -107,7 +107,7 @@ form.addEventListener("submit", async (event) => {
 });
 async function loadPosts() {
   if (!client) return;
-  const { data, error } = await client.from("wolf_submissions").select("id,alias,category,title,story,media_url,media_type,created_at").order("created_at", { ascending: false }).limit(60);
+  const { data, error } = await client.from("submissions").select("id,alias,category,title,story,media_url,media_type,created_at").order("created_at", { ascending: false }).limit(60);
   if (error) {
     gallery.innerHTML = '<div class="gallery-empty">Beiträge konnten nicht geladen werden. Bitte Datenbank-Regeln prüfen.</div>';
     return;
