@@ -93,7 +93,7 @@ form.addEventListener("submit", async (event) => {
       media_url,
       media_type
     };
-    const { error } = await client.from("wolf_submissions").insert(payload);
+    const { error } = await client.from("submissions").insert(payload);
     if (error) throw error;
     form.reset();
     statusEl.textContent = "Danke! Deine Einsendung wurde veröffentlicht.";
